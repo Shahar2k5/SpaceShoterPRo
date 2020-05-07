@@ -9,6 +9,7 @@ TagManager:
   - Projectile
   - Key
   - Laser
+  - SpawnManager
   layers:
   - Default
   - TransparentFX

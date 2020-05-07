@@ -19,11 +19,23 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _playerLife = 3;
 
+    private SpawnManager _spawnManager;
+
+    private void Start()
+    {
+        _spawnManager = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnManager>();
+        Debug.Log("this is " + _spawnManager);
+    }
+
     public void DamagePlayer()
     {
         _playerLife--;
         if (_playerLife == 0)
         {
+            if (_spawnManager != null)
+            {
+                _spawnManager.PlayerDied();
+            }
             Destroy(this.gameObject);
         }
     }
@@ -41,8 +53,8 @@ public class Player : MonoBehaviour
 
     private void FireLaser()
     {
-            _canFire = Time.time + _fireRate;
-            Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.7f,0), Quaternion.identity);
+        _canFire = Time.time + _fireRate;
+        Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.7f,0), Quaternion.identity);
     }
 
     private void CalculateMovement()
