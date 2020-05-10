@@ -10,6 +10,8 @@ TagManager:
   - Key
   - Laser
   - SpawnManager
+  - SpeedPowerUp
+  - TripleShotPowerUp
   layers:
   - Default
   - TransparentFX

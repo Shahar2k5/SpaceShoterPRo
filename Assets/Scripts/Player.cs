@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float _fireRate = 0.5f;
-
+    
     [SerializeField]
     private float _canFire = -1f;
 
@@ -23,18 +23,28 @@ public class Player : MonoBehaviour
     private int _playerLife = 3;
 
     private SpawnManager _spawnManager;
+    [SerializeField]
+    private GameObject _shieldVisualizer;
 
     [SerializeField]
     private bool isTripleShotAvailable = false;
+    private bool _isShieldOn = false;
 
     private void Start()
     {
         _spawnManager = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnManager>();
-        Debug.Log("this is " + _spawnManager);
+        _shieldVisualizer.SetActive(false);
     }
 
     public void DamagePlayer()
     {
+        if (_isShieldOn)
+        {
+            _isShieldOn = false;
+            _shieldVisualizer.SetActive(false);
+            return;
+        }
+
         _playerLife--;
         if (_playerLife == 0)
         {
@@ -94,9 +104,27 @@ public class Player : MonoBehaviour
         StartCoroutine(TripleShotRoutine());
     }
 
+    public void enableSuperSpeed()
+    {
+        _speed= 15;
+        StartCoroutine(SuperSpeedRoutine());
+    }
+
+    public void enableShield()
+    {
+        _shieldVisualizer.SetActive(true);
+        _isShieldOn = true;
+    }
+
     IEnumerator TripleShotRoutine()
     {
         yield return new WaitForSeconds(5);
         isTripleShotAvailable = false;
+    }
+
+    IEnumerator SuperSpeedRoutine()
+    {
+        yield return new WaitForSeconds(5);
+        _speed = 10;
     }
 }
