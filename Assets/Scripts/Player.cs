@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private GameObject _laserPrefab;
 
     [SerializeField]
-    private GameObject _tripleShotLaserPrefab;
+    private GameObject _tripleLaser;
 
     [SerializeField]
     private float _fireRate = 0.5f;
@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
         _canFire = Time.time + _fireRate;
         if (isTripleShotAvailable)
         {
-            Instantiate(_tripleShotLaserPrefab, transform.position, Quaternion.identity);
+            Instantiate(_tripleLaser, transform.position, Quaternion.identity);
         }
         else
         {
