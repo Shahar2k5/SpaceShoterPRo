@@ -21,12 +21,10 @@ public class PowerUps : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
         {
             Player player = other.transform.GetComponent<Player>();
             if (player != null)
             {
-                Debug.Log("powerupID is " + _powerUpID);
                 switch (_powerUpID)
                 {
                     case 0:
@@ -39,8 +37,8 @@ public class PowerUps : MonoBehaviour
                         player.enableShield();
                         break;
                 }
+                Destroy(this.gameObject);
             }
-            Destroy(this.gameObject);
         }
     }
 }

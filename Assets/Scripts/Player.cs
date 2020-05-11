@@ -13,25 +13,27 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _tripleLaser;
 
+    private UIUpdater _uiUpdater;
     [SerializeField]
-    private float _fireRate = 0.5f;
-    
-    [SerializeField]
-    private float _canFire = -1f;
-
-    [SerializeField]
-    private int _playerLife = 3;
-
     private SpawnManager _spawnManager;
     [SerializeField]
     private GameObject _shieldVisualizer;
 
-    [SerializeField]
     private bool isTripleShotAvailable = false;
+    [SerializeField]
     private bool _isShieldOn = false;
+    [SerializeField]
+    private int _playerLife = 3;
+    [SerializeField]
+    private float _fireRate = 0.2f;
+    private float _canFire = -1f;
+
+    [SerializeField]
+    private int _score = 0;
 
     private void Start()
     {
+        _uiUpdater = GameObject.Find("Canvas").GetComponent<UIUpdater>();
         _spawnManager = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnManager>();
         _shieldVisualizer.SetActive(false);
     }
@@ -126,5 +128,11 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         _speed = 10;
+    }
+
+    public void EnemyKilled()
+    {
+        _score += 10;
+        _uiUpdater.UpdateScore(_score);
     }
 }
